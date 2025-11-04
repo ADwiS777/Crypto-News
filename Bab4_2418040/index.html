@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CryptoNews — Berita Kripto Indonesia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* === Logika Tab === */
+    .grid-all, .grid-latest, .grid-trending { display: none; }
+    #feed-all:checked ~ .feed .grid-all { display: contents; }
+    #feed-latest:checked ~ .feed .grid-latest { display: contents; }
+    #feed-trending:checked ~ .feed .grid-trending { display: contents; }
+
+    /* === Tambahan UI DOM Features (aman, tidak mengubah style course) === */
+    .searchbar{margin:12px 0 4px; display:flex;}
+    .searchbar input{
+      width:100%; padding:10px 12px; border:1px solid #2a3659; border-radius:10px;
+      background:#0f1629; color:#e7edf3; outline:none;
+    }
+    .searchbar input::placeholder{color:#8ea0b5}
+
+    .toast{
+      position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(10px);
+      background:#0f1629; color:#e7edf3; border:1px solid #2a3659; border-radius:12px;
+      padding:10px 14px; box-shadow:0 8px 24px rgba(0,0,0,.35);
+      opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:9999;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+
+<body>
+  <!-- ====== NAVBAR ====== -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="CryptoNews">
+        <div class="logo">₿</div>
+        <span>CryptoNews</span>
+      </a>
+      <nav class="menu center">
+        <ul>
+          <li><a class="pill active" href="#home">Beranda</a></li>
+          <li><a class="pill" href="#research">Research</a></li>
+          <li><a class="pill" href="#courses">Course</a></li>
+        </ul>
+      </nav>
+      <a class="profile-icon" href="login.html" aria-label="Profil">
+        <div class="avatar">👤</div>
+      </a>
+    </div>
+  </header>
+
+  <!-- ====== KONTEN ====== -->
+  <main class="container">
+    <!-- ================= BERANDA ================= -->
+    <section id="home" class="view">
+      <div class="hero">
+        <h1>Berita Kripto Terbaru & Tren Pasar</h1>
+        <p>Ikuti kabar terbaru seputar Bitcoin, Altcoin, DeFi, NFT, regulasi, hingga analisis pasar — semuanya dalam Bahasa Indonesia.</p>
+      </div>
+
+      <div class="tabs">
+        <input type="radio" id="feed-all" name="feed" checked>
+        <input type="radio" id="feed-latest" name="feed">
+        <input type="radio" id="feed-trending" name="feed">
+
+        <div class="tab-controls">
+          <label for="feed-all">Semua</label>
+          <label for="feed-latest">Terkini</label>
+          <label for="feed-trending">Trending</label>
+        </div>
+
+        <div class="feed">
+          <div class="grid-all">
+            <article class="card">
+              <span class="badge b-new">Baru</span>
+              <h3>Bitcoin Menembus Resistensi Penting — Apa Selanjutnya?</h3>
+              <p>Trader mengamati potensi breakout lanjutan setelah volume meningkat di sesi Asia.</p>
+              <div class="meta"><span>⏱ 2 jam lalu</span><span>📚 Market</span></div>
+              <a class="cta" href="#">Baca selengkapnya →</a>
+            </article>
+
+            <article class="card">
+              <span class="badge b-trend">Trending</span>
+              <h3>ETF Kripto Baru Disetujui? Inilah Dampaknya</h3>
+              <p>Regulator memberi lampu hijau pada produk berbasis aset digital tertentu.</p>
+              <div class="meta"><span>⏱ 6 jam lalu</span><span>🏛 Regulasi</span></div>
+              <a class="cta" href="#">Baca selengkapnya →</a>
+            </article>
+
+            <article class="card">
+              <span class="badge b-new">Baru</span>
+              <h3>Layer-2 Memanas: Biaya Turun, Aktivitas Naik</h3>
+              <p>Pengguna beralih ke L2 untuk transaksi murah dan cepat, mendorong TVL ke rekor baru.</p>
+              <div class="meta"><span>⏱ 1 jam lalu</span><span>🧱 Teknologi</span></div>
+              <a class="cta" href="#">Baca selengkapnya →</a>
+            </article>
+
+            <article class="card">
+              <span class="badge b-new">Baru</span>
+              <h3>Hashrate Naik: Kesulitan Mining Cetak Rekor</h3>
+              <p>Kenaikan hashrate penambang dorong penyesuaian difficulty terbesar kuartal ini.</p>
+              <div class="meta"><span>⏱ 3 jam lalu</span><span>⛏️ Mining</span></div>
+              <a class="cta" href="#">Baca selengkapnya →</a>
+            </article>
+
+            <article class="card">
+              <span class="badge b-trend">Trending</span>
+              <h3>DEX Sentuh ATH Volume Harian</h3>
+              <p>Pergeseran likuiditas ke DEX meningkat seiring biaya transaksi L2 yang makin murah.</p>
+              <div class="meta"><span>⏱ 7 jam lalu</span><span>🔁 DeFi</span></div>
+              <a class="cta" href="#">Baca selengkapnya →</a>
+            </article>
+
+            <article class="card">
+              <span class="badge b-new">Baru</span>
+              <h3>Regulator Asia Perketat Aturan KYC untuk Exchange</h3>
+              <p>Pengetatan kepatuhan AML/KYC ditargetkan menekan aktivitas ilegal lintas bursa.</p>
+              <div class="meta"><span>⏱ 5 jam lalu</span><span>🛡️ Regulasi</span></div>
+              <a class="cta" href="#">Baca selengkapnya →</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RESEARCH ================= -->
+    <section id="research" class="view">
+      <div class="hero" style="margin-bottom:18px">
+        <h1>Research — Coming Soon</h1>
+        <p>Fitur riset on-chain, sentimen, dan screener token akan hadir di sini.</p>
+      </div>
+      <div class="soon">
+        <h2>Segera Hadir!</h2>
+        <p>Kami sedang menyiapkan alat riset untuk bantu kamu ambil keputusan lebih cerdas.</p>
+        <div class="chips">
+          <span class="chip">On-chain Dashboard</span>
+          <span class="chip">Screener Token</span>
+          <span class="chip">Sentimen Sosial</span>
+          <span class="chip">Heatmap Sektor</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COURSE (dipulihkan seperti semula) ================= -->
+    <section id="courses" class="view">
+      <div class="hero" style="margin-bottom:18px">
+        <div class="hero-head">
+          <div>
+            <h1>Course Pilihan</h1>
+            <p>Belajar kripto dari dasar hingga mahir. Tiap kelas dilengkapi studi kasus dan template.</p>
+          </div>
+          <a class="join-btn" href="join.html">Join Member</a>
+        </div>
+      </div>
+
+      <div class="course-grid">
+        <!-- 1) Dasar Blockchain -->
+        <article class="course-card">
+          <figure class="course-illus">
+            <svg viewBox="0 0 400 275" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#00d1ff"/><stop offset="1" stop-color="#3055ff"/>
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="#0c1324"/>
+              <rect x="36" y="60" rx="10" ry="10" width="110" height="70" fill="none" stroke="url(#g1)" stroke-width="3"/>
+              <rect x="152" y="110" rx="10" ry="10" width="110" height="70" fill="none" stroke="url(#g1)" stroke-width="3" opacity=".85"/>
+              <rect x="268" y="160" rx="10" ry="10" width="110" height="70" fill="none" stroke="url(#g1)" stroke-width="3" opacity=".7"/>
+            </svg>
+          </figure>
+          <div class="course-meta">
+            <h3>Dasar Blockchain</h3>
+            <p>Pahami block, hash, konsensus, dan mengapa blockchain tahan sensor.</p>
+            <button type="button" class="course-cta" data-course="blockchain">Lihat silabus →</button>
+          </div>
+        </article>
+
+        <!-- 2) Keamanan Kripto -->
+        <article class="course-card">
+          <figure class="course-illus">
+            <svg viewBox="0 0 400 275" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#ff9a5f"/><stop offset="1" stop-color="#ff5d5d"/></linearGradient></defs>
+              <rect width="100%" height="100%" fill="#0c1324"/>
+              <path d="M200 60 L290 100 v60c0 60-52 92-90 105-38-13-90-45-90-105V100z" fill="none" stroke="url(#g2)" stroke-width="4"/>
+              <circle cx="200" cy="130" r="26" fill="none" stroke="#ffd4c2" stroke-width="3"/>
+              <rect x="194" y="128" width="12" height="40" rx="6" fill="#ffd4c2"/>
+            </svg>
+          </figure>
+          <div class="course-meta">
+            <h3>Keamanan Kripto</h3>
+            <p>Praktik aman: wallet, seed phrase, 2FA, phishing, hingga permission token.</p>
+            <button type="button" class="course-cta" data-course="security">Lihat silabus →</button>
+          </div>
+        </article>
+
+        <!-- 3) Analisis Teknikal -->
+        <article class="course-card">
+          <figure class="course-illus">
+            <svg viewBox="0 0 400 275" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#0c1324"/>
+              <g opacity=".15" stroke="#6af3ff"><path d="M40 220 H360 M40 180 H360 M40 140 H360 M40 100 H360"/></g>
+              <g>
+                <line x1="90" x2="90" y1="150" y2="210" stroke="#0ad48b" stroke-width="4"/>
+                <rect x="78" y="160" width="24" height="34" rx="4" fill="#0ad48b"/>
+                <line x1="150" x2="150" y1="120" y2="200" stroke="#ff5d5d" stroke-width="4"/>
+                <rect x="138" y="150" width="24" height="40" rx="4" fill="#ff5d5d"/>
+                <line x1="210" x2="210" y1="110" y2="190" stroke="#0ad48b" stroke-width="4"/>
+                <rect x="198" y="120" width="24" height="50" rx="4" fill="#0ad48b"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="course-meta">
+            <h3>Analisis Teknikal</h3>
+            <p>Candlestick, support–resistance, tren, indikator untuk entry/exit disiplin.</p>
+            <button type="button" class="course-cta" data-course="ta">Lihat silabus →</button>
+          </div>
+        </article>
+
+        <!-- 4) DeFi & NFT -->
+        <article class="course-card">
+          <figure class="course-illus">
+            <svg viewBox="0 0 400 275" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#0c1324"/>
+              <rect x="40" y="80" width="110" height="60" rx="10" fill="none" stroke="#6af3ff" stroke-width="3"/>
+              <rect x="160" y="80" width="110" height="60" rx="10" fill="none" stroke="#6af3ff" stroke-width="3"/>
+              <rect x="280" y="80" width="80" height="60" rx="10" fill="none" stroke="#6af3ff" stroke-width="3"/>
+              <path d="M150 110 H160 M270 110 H280" stroke="#6af3ff" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="110" cy="210" r="36" fill="none" stroke="#ff9a5f" stroke-width="4"/>
+              <text x="110" y="216" text-anchor="middle" font-family="Inter,Arial" font-size="18" fill="#ff9a5f" font-weight="700">NFT</text>
+            </svg>
+          </figure>
+          <div class="course-meta">
+            <h3>DeFi & NFT</h3>
+            <p>AMM, lending, yield, dan utilitas NFT modern untuk komunitas & tiket.</p>
+            <button type="button" class="course-cta" data-course="defi-nft">Lihat silabus →</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> CryptoNews • Dibuat dengan ❤ untuk komunitas kripto Indonesia
+    </div>
+  </footer>
+
+  <!-- ===== FEEDBACK ===== -->
+  <button id="feedbackToggle" class="feedback-fab" title="Beri Feedback">📨</button>
+
+  <aside id="feedbackPanel" class="feedback-panel">
+    <div class="feedback-header">
+      <strong>Feedback</strong>
+      <button id="feedbackClose" class="feedback-close" aria-label="Tutup">✕</button>
+    </div>
+    <form id="feedbackForm" class="feedback-form">
+      <label for="fb-name">Nama Pengguna</label>
+      <input id="fb-name" type="text" placeholder="Nama" required>
+      <label for="fb-msg">Masukkan</label>
+      <textarea id="fb-msg" rows="4" placeholder="Tulis saran atau masukan" required></textarea>
+      <button class="btn feedback-submit" type="submit">Kirim</button>
+      <p class="feedback-note">Terima kasih—masukanmu bantu kami jadi lebih baik.</p>
+    </form>
+  </aside>
+
+  <script>
+    // Tahun otomatis
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Menu aktif + tampilkan/sembunyikan feedback
+    function syncMenu(){
+      const hash = location.hash || '#home';
+      document.querySelectorAll('header a[href^="#"]').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href')===hash);
+      });
+
+      const feedbackFab = document.getElementById('feedbackToggle');
+      const feedbackPanel = document.getElementById('feedbackPanel');
+
+      if (hash === '#home' || hash === '') {
+        feedbackFab.style.display = 'grid';
+      } else {
+        feedbackFab.style.display = 'none';
+        feedbackPanel.classList.remove('open');
+      }
+    }
+    addEventListener('hashchange', syncMenu);
+    syncMenu();
+
+    // ===== Feedback toggle =====
+    const fab = document.getElementById('feedbackToggle');
+    const panel = document.getElementById('feedbackPanel');
+    const closeBtn = document.getElementById('feedbackClose');
+    const form = document.getElementById('feedbackForm');
+    fab.addEventListener('click', () => panel.classList.toggle('open'));
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+
+    // ===== [DOM 1] Bangun Tab "Terkini" & "Trending" dari "Semua" =====
+    (function buildDerivedFeeds(){
+      const feed = document.querySelector('.feed');
+      let latest = document.createElement('div'); latest.className = 'grid-latest';
+      let trending = document.createElement('div'); trending.className = 'grid-trending';
+      feed.appendChild(latest); feed.appendChild(trending);
+      document.querySelectorAll('.grid-all .card').forEach(card=>{
+        if(card.querySelector('.b-new')) latest.appendChild(card.cloneNode(true));
+        if(card.querySelector('.b-trend')) trending.appendChild(card.cloneNode(true));
+      });
+    })();
+
+    // ===== [DOM 2] Tambah Searchbar di tab berita =====
+    (function injectSearch(){
+      const tabs = document.querySelector('.tabs');
+      if(!tabs) return;
+      const searchWrap = document.createElement('div');
+      searchWrap.className = 'searchbar';
+      searchWrap.innerHTML = `<input id="search" type="search" placeholder="Cari berita... (judul/deskripsi)">`;
+      tabs.insertBefore(searchWrap, tabs.querySelector('.feed'));
+      const searchInput = document.getElementById('search');
+
+      function activeGrid(){
+        if (document.getElementById('feed-all').checked) return document.querySelector('.grid-all');
+        if (document.getElementById('feed-latest').checked) return document.querySelector('.grid-latest');
+        return document.querySelector('.grid-trending');
+      }
+      function filterCards(){
+        const q = searchInput.value.trim().toLowerCase();
+        const grid = activeGrid();
+        if(!grid) return;
+        grid.querySelectorAll('.card').forEach(c=>{
+          const hay = (c.querySelector('h3')?.textContent || '') + ' ' + (c.querySelector('p')?.textContent || '');
+          c.style.display = hay.toLowerCase().includes(q) ? '' : 'none';
+        });
+      }
+      searchInput.addEventListener('input', filterCards);
+      ['feed-all','feed-latest','feed-trending'].forEach(id=>{
+        document.getElementById(id).addEventListener('change', ()=>{
+          searchInput.value=''; const grid=activeGrid();
+          if(grid){grid.querySelectorAll('.card').forEach(c=>c.style.display='');}
+        });
+      });
+    })();
+
+    // ===== [DOM 3] Toast/snackbar saat kirim feedback =====
+    function showToast(msg){
+      let t = document.getElementById('toast');
+      if(!t){
+        t = document.createElement('div'); t.id = 'toast'; t.className = 'toast';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      requestAnimationFrame(()=>{
+        t.classList.add('show');
+        setTimeout(()=> t.classList.remove('show'), 2200);
+      });
+    }
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      showToast('Terima kasih atas feedbacknya!');
+      form.reset();
+      panel.classList.remove('open');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join Member — CryptoNews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html#home" aria-label="CryptoNews">
+        <div class="logo">₿</div>
+        <span>CryptoNews</span>
+      </a>
+      <nav class="menu center">
+        <ul>
+          <li><a class="pill" href="index.html#home">Beranda</a></li>
+          <li><a class="pill" href="index.html#research">Research</a></li>
+          <li><a class="pill" href="index.html#courses">Course</a></li>
+        </ul>
+      </nav>
+      <a class="profile-icon" href="login.html" aria-label="Profil"><div class="avatar">👤</div></a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero" style="margin-bottom:18px">
+      <h1>Join Member</h1>
+      <p>Daftar jadi member untuk akses update eksklusif dan fitur premium.</p>
+    </div>
+
+    <form class="form" action="#" method="post" style="max-width:560px; margin:auto">
+      <div class="row">
+        <label class="input-label" for="jm-name">Nama Lengkap</label>
+        <input id="jm-name" name="name" type="text" placeholder="Nama lengkap" required>
+      </div>
+      <div class="row">
+        <label class="input-label" for="jm-phone">Nomor Telepon</label>
+        <input id="jm-phone" name="phone" type="tel" placeholder="08xxxxxxxxxx" required>
+      </div>
+      <div class="row">
+        <label class="input-label" for="jm-address">Alamat</label>
+        <input id="jm-address" name="address" type="text" placeholder="Alamat lengkap" required>
+      </div>
+      <button class="btn" type="submit">Daftar</button>
+    </form>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> CryptoNews • Dibuat dengan ❤ untuk komunitas kripto Indonesia
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
